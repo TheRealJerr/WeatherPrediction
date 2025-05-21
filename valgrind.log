@@ -1,0 +1,898 @@
+==2996342== Memcheck, a memory error detector
+==2996342== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2996342== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==2996342== Command: bin/program
+==2996342== Parent PID: 2995460
+==2996342== 
+==2996342== Conditional jump or move depends on uninitialised value(s)
+==2996342==    at 0x16807C: void reactor::ThreadPool::addNewTask<std::function<void ()>&>(std::function<void ()>&) (ThreadPool.h:94)
+==2996342==    by 0x166451: reactor::Server::start() (Server.cpp:25)
+==2996342==    by 0x12FB3B: main (main.cpp:84)
+==2996342==  Uninitialised value was created by a heap allocation
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x167950: std::_MakeUniq<reactor::ThreadPool>::__single_object std::make_unique<reactor::ThreadPool>() (unique_ptr.h:962)
+==2996342==    by 0x1671CA: reactor::ThreadPool::getInstance() (ThreadPool.h:53)
+==2996342==    by 0x166437: reactor::Server::start() (Server.cpp:25)
+==2996342==    by 0x12FB3B: main (main.cpp:84)
+==2996342== 
+==2996342== 
+==2996342== Process terminating with default action of signal 2 (SIGINT)
+==2996342==    at 0x4CB745F: accept (accept.c:26)
+==2996342==    by 0x164A1E: reactor::Accept(reactor::SockAddrInfo*, int) (net.cpp:228)
+==2996342==    by 0x11A1F1: reactor::MainDispatcher::run() (DisPatcher.cpp:37)
+==2996342==    by 0x166491: reactor::Server::start() (Server.cpp:27)
+==2996342==    by 0x12FB3B: main (main.cpp:84)
+==2996342== 
+==2996342== HEAP SUMMARY:
+==2996342==     in use at exit: 196,997 bytes in 769 blocks
+==2996342==   total heap usage: 1,675 allocs, 906 frees, 453,349 bytes allocated
+==2996342== 
+==2996342== 8 bytes in 1 blocks are still reachable in loss record 1 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x510179D: CRYPTO_zalloc (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5032EDC: ??? (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x50339F9: BN_set_word (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x4E450F7: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x4E32571: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 8 bytes in 1 blocks are still reachable in loss record 2 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11641F: std::_MakeUniq<reactor::LogTool>::__single_object std::make_unique<reactor::LogTool>() (unique_ptr.h:962)
+==2996342==    by 0x113C0C: reactor::LogTool::getInstance() (Log.h:153)
+==2996342==    by 0x113F68: reactor::LogInfo::~LogInfo() (Log.h:207)
+==2996342==    by 0x162FE5: reactor::ServerSocket::bindSocket() (net.cpp:35)
+==2996342==    by 0x166EB0: reactor::ServerSocket::ServerSocket(unsigned short, int) (net.h:94)
+==2996342==    by 0x166266: reactor::Server::Server(unsigned short) (Server.cpp:6)
+==2996342==    by 0x12FAEB: main (main.cpp:81)
+==2996342== 
+==2996342== 15 bytes in 1 blocks are still reachable in loss record 3 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4C3858E: strdup (strdup.c:42)
+==2996342==    by 0x4C6AC10: tzset_internal (tzset.c:402)
+==2996342==    by 0x4C6B5A6: __tz_convert (tzset.c:577)
+==2996342==    by 0x4C68E7C: ctime (ctime.c:27)
+==2996342==    by 0x1135C3: reactor::Timer::getCurTime[abi:cxx11]() (Log.h:65)
+==2996342==    by 0x113DDE: reactor::LogInfo::LogInfo(reactor::LogLevel, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int) (Log.h:192)
+==2996342==    by 0x1640A1: reactor::Connection::readMsg(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*) (net.cpp:156)
+==2996342==    by 0x11A926: reactor::ThreadDispatcher::eventReady(int) (DisPatcher.cpp:106)
+==2996342==    by 0x11A491: reactor::ThreadDispatcher::run() (DisPatcher.cpp:68)
+==2996342==    by 0x166325: reactor::Server::start()::{lambda()#1}::operator()() const (Server.cpp:22)
+==2996342==    by 0x166865: void std::__invoke_impl<void, reactor::Server::start()::{lambda()#1}&>(std::__invoke_other, reactor::Server::start()::{lambda()#1}&) (invoke.h:61)
+==2996342== 
+==2996342== 16 bytes in 1 blocks are still reachable in loss record 4 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11D527: __gnu_cxx::new_allocator<int>::allocate(unsigned long, void const*) (new_allocator.h:127)
+==2996342==    by 0x11CA55: std::allocator_traits<std::allocator<int> >::allocate(std::allocator<int>&, unsigned long) (alloc_traits.h:464)
+==2996342==    by 0x11C19F: std::_Vector_base<int, std::allocator<int> >::_M_allocate(unsigned long) (stl_vector.h:346)
+==2996342==    by 0x11BA5E: void std::vector<int, std::allocator<int> >::_M_realloc_insert<int const&>(__gnu_cxx::__normal_iterator<int*, std::vector<int, std::allocator<int> > >, int const&) (vector.tcc:440)
+==2996342==    by 0x11B551: std::vector<int, std::allocator<int> >::push_back(int const&) (stl_vector.h:1198)
+==2996342==    by 0x11A087: reactor::MainDispatcher::addNewListener() (DisPatcher.cpp:24)
+==2996342==    by 0x166390: reactor::Server::start() (Server.cpp:14)
+==2996342==    by 0x12FB3B: main (main.cpp:84)
+==2996342== 
+==2996342== 20 bytes in 1 blocks are still reachable in loss record 5 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4C6A917: __tzstring_len (tzset.c:98)
+==2996342==    by 0x4C6A917: __tzstring (tzset.c:121)
+==2996342==    by 0x4C6C264: __tzfile_read (tzfile.c:408)
+==2996342==    by 0x4C6AC23: tzset_internal (tzset.c:405)
+==2996342==    by 0x4C6B5A6: __tz_convert (tzset.c:577)
+==2996342==    by 0x4C68E7C: ctime (ctime.c:27)
+==2996342==    by 0x1135C3: reactor::Timer::getCurTime[abi:cxx11]() (Log.h:65)
+==2996342==    by 0x113DDE: reactor::LogInfo::LogInfo(reactor::LogLevel, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int) (Log.h:192)
+==2996342==    by 0x162FBD: reactor::ServerSocket::bindSocket() (net.cpp:35)
+==2996342==    by 0x166EB0: reactor::ServerSocket::ServerSocket(unsigned short, int) (net.h:94)
+==2996342==    by 0x166266: reactor::Server::Server(unsigned short) (Server.cpp:6)
+==2996342==    by 0x12FAEB: main (main.cpp:81)
+==2996342== 
+==2996342== 24 bytes in 1 blocks are still reachable in loss record 6 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x510179D: CRYPTO_zalloc (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5032E13: BN_new (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x4E450DE: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x4E32571: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 24 bytes in 1 blocks are still reachable in loss record 7 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x510179D: CRYPTO_zalloc (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5032E13: BN_new (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x4E45184: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x4E32571: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 24 bytes in 1 blocks are still reachable in loss record 8 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x510179D: CRYPTO_zalloc (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5032E13: BN_new (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x4E451BB: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x4E32571: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 24 bytes in 1 blocks are still reachable in loss record 9 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x510179D: CRYPTO_zalloc (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5032E13: BN_new (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x4E451F2: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x4E32571: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 24 bytes in 1 blocks are still reachable in loss record 10 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x510179D: CRYPTO_zalloc (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5032E13: BN_new (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x4E45229: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x4E32571: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 11 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843A2F: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 12 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843A4F: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 13 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843A6F: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 14 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843A96: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 15 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843AB6: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 16 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843AD6: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 17 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843B28: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 18 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843B4A: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 19 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843B6C: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 20 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843B9A: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 21 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843BBA: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 22 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843BDA: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 23 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843BFC: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 24 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843C1E: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 25 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843C3E: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 26 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843C5E: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 27 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843D10: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 28 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843D30: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 29 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843D50: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 30 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843D70: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 31 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843D97: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 32 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x585E982: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5843DB7: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 33 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x16A4CB: __gnu_cxx::new_allocator<std::thread>::allocate(unsigned long, void const*) (new_allocator.h:127)
+==2996342==    by 0x169E5A: std::allocator_traits<std::allocator<std::thread> >::allocate(std::allocator<std::thread>&, unsigned long) (alloc_traits.h:464)
+==2996342==    by 0x169417: std::_Vector_base<std::thread, std::allocator<std::thread> >::_M_allocate(unsigned long) (stl_vector.h:346)
+==2996342==    by 0x16851F: std::vector<std::thread, std::allocator<std::thread> >::_M_default_append(unsigned long) (vector.tcc:635)
+==2996342==    by 0x167B04: std::vector<std::thread, std::allocator<std::thread> >::resize(unsigned long) (stl_vector.h:940)
+==2996342==    by 0x1672D8: reactor::ThreadPool::ThreadPool() (ThreadPool.h:62)
+==2996342==    by 0x16795F: std::_MakeUniq<reactor::ThreadPool>::__single_object std::make_unique<reactor::ThreadPool>() (unique_ptr.h:962)
+==2996342==    by 0x1671CA: reactor::ThreadPool::getInstance() (ThreadPool.h:53)
+==2996342==    by 0x166437: reactor::Server::start() (Server.cpp:25)
+==2996342==    by 0x12FB3B: main (main.cpp:84)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 34 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11E881: __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<reactor::Connection, std::allocator<reactor::Connection>, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==2996342==    by 0x11E558: std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<reactor::Connection, std::allocator<reactor::Connection>, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<reactor::Connection, std::allocator<reactor::Connection>, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (alloc_traits.h:464)
+==2996342==    by 0x11DF7B: std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<reactor::Connection, std::allocator<reactor::Connection>, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<reactor::Connection, std::allocator<reactor::Connection>, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<reactor::Connection, std::allocator<reactor::Connection>, (__gnu_cxx::_Lock_policy)2> >&) (allocated_ptr.h:98)
+==2996342==    by 0x11D5E9: std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<reactor::Connection, std::allocator<reactor::Connection>, int&>(reactor::Connection*&, std::_Sp_alloc_shared_tag<std::allocator<reactor::Connection> >, int&) (shared_ptr_base.h:648)
+==2996342==    by 0x11CADB: std::__shared_ptr<reactor::Connection, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<reactor::Connection>, int&>(std::_Sp_alloc_shared_tag<std::allocator<reactor::Connection> >, int&) (shared_ptr_base.h:1342)
+==2996342==    by 0x11C24C: std::shared_ptr<reactor::Connection>::shared_ptr<std::allocator<reactor::Connection>, int&>(std::_Sp_alloc_shared_tag<std::allocator<reactor::Connection> >, int&) (shared_ptr.h:409)
+==2996342==    by 0x11BC0E: std::shared_ptr<reactor::Connection> std::allocate_shared<reactor::Connection, std::allocator<reactor::Connection>, int&>(std::allocator<reactor::Connection> const&, int&) (shared_ptr.h:863)
+==2996342==    by 0x11B5F6: std::shared_ptr<reactor::Connection> std::make_shared<reactor::Connection, int&>(int&) (shared_ptr.h:879)
+==2996342==    by 0x11A626: reactor::ThreadDispatcher::readReady() (DisPatcher.cpp:87)
+==2996342==    by 0x11A47E: reactor::ThreadDispatcher::run() (DisPatcher.cpp:66)
+==2996342==    by 0x166325: reactor::Server::start()::{lambda()#1}::operator()() const (Server.cpp:22)
+==2996342== 
+==2996342== 32 bytes in 1 blocks are still reachable in loss record 35 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11E341: __gnu_cxx::new_allocator<std::__detail::_Hash_node<std::pair<int const, std::shared_ptr<reactor::Connection> >, false> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==2996342==    by 0x11DA83: std::allocator_traits<std::allocator<std::__detail::_Hash_node<std::pair<int const, std::shared_ptr<reactor::Connection> >, false> > >::allocate(std::allocator<std::__detail::_Hash_node<std::pair<int const, std::shared_ptr<reactor::Connection> >, false> >&, unsigned long) (alloc_traits.h:464)
+==2996342==    by 0x11D74D: std::__detail::_Hash_node<std::pair<int const, std::shared_ptr<reactor::Connection> >, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<int const, std::shared_ptr<reactor::Connection> >, false> > >::_M_allocate_node<std::pair<int, std::shared_ptr<reactor::Connection> > >(std::pair<int, std::shared_ptr<reactor::Connection> >&&) (hashtable_policy.h:1873)
+==2996342==    by 0x11CB38: std::_Hashtable<int, std::pair<int const, std::shared_ptr<reactor::Connection> >, std::allocator<std::pair<int const, std::shared_ptr<reactor::Connection> > >, std::__detail::_Select1st, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_Scoped_node::_Scoped_node<std::pair<int, std::shared_ptr<reactor::Connection> > >(std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<int const, std::shared_ptr<reactor::Connection> >, false> > >*, std::pair<int, std::shared_ptr<reactor::Connection> >&&) (hashtable.h:304)
+==2996342==    by 0x11C2A9: std::pair<std::__detail::_Node_iterator<std::pair<int const, std::shared_ptr<reactor::Connection> >, false, false>, bool> std::_Hashtable<int, std::pair<int const, std::shared_ptr<reactor::Connection> >, std::allocator<std::pair<int const, std::shared_ptr<reactor::Connection> > >, std::__detail::_Select1st, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_emplace<std::pair<int, std::shared_ptr<reactor::Connection> > >(std::integral_constant<bool, true>, std::pair<int, std::shared_ptr<reactor::Connection> >&&) (hashtable.h:1966)
+==2996342==    by 0x11BCBF: std::pair<std::__detail::_Node_iterator<std::pair<int const, std::shared_ptr<reactor::Connection> >, false, false>, bool> std::_Hashtable<int, std::pair<int const, std::shared_ptr<reactor::Connection> >, std::allocator<std::pair<int const, std::shared_ptr<reactor::Connection> > >, std::__detail::_Select1st, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::emplace<std::pair<int, std::shared_ptr<reactor::Connection> > >(std::pair<int, std::shared_ptr<reactor::Connection> >&&) (hashtable.h:915)
+==2996342==    by 0x11B6C5: std::enable_if<std::is_constructible<std::pair<int const, std::shared_ptr<reactor::Connection> >, std::pair<int, std::shared_ptr<reactor::Connection> >&&>::value, std::pair<std::__detail::_Node_iterator<std::pair<int const, std::shared_ptr<reactor::Connection> >, false, false>, bool> >::type std::unordered_map<int, std::shared_ptr<reactor::Connection>, std::hash<int>, std::equal_to<int>, std::allocator<std::pair<int const, std::shared_ptr<reactor::Connection> > > >::insert<std::pair<int, std::shared_ptr<reactor::Connection> > >(std::pair<int, std::shared_ptr<reactor::Connection> >&&) (unordered_map.h:564)
+==2996342==    by 0x11A67A: reactor::ThreadDispatcher::readReady() (DisPatcher.cpp:91)
+==2996342==    by 0x11A47E: reactor::ThreadDispatcher::run() (DisPatcher.cpp:66)
+==2996342==    by 0x166325: reactor::Server::start()::{lambda()#1}::operator()() const (Server.cpp:22)
+==2996342==    by 0x166865: void std::__invoke_impl<void, reactor::Server::start()::{lambda()#1}&>(std::__invoke_other, reactor::Server::start()::{lambda()#1}&) (invoke.h:61)
+==2996342== 
+==2996342== 33 bytes in 1 blocks are still reachable in loss record 36 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4BCA5DE: set_binding_values.part.0 (bindtextdom.c:203)
+==2996342==    by 0x4BCA89B: set_binding_values (bindtextdom.c:322)
+==2996342==    by 0x4BCA89B: bindtextdomain (bindtextdom.c:320)
+==2996342==    by 0x58434AF: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 40 bytes in 1 blocks are still reachable in loss record 37 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x167DC5: std::_MakeUniq<reactor::MainDispatcher>::__single_object std::make_unique<reactor::MainDispatcher, int>(int&&) (unique_ptr.h:962)
+==2996342==    by 0x166290: reactor::Server::Server(unsigned short) (Server.cpp:6)
+==2996342==    by 0x12FAEB: main (main.cpp:81)
+==2996342== 
+==2996342== 40 bytes in 2 blocks are still reachable in loss record 38 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4C6A8BD: __tzstring_len (tzset.c:98)
+==2996342==    by 0x4C6A8BD: __tzstring (tzset.c:121)
+==2996342==    by 0x4C6C264: __tzfile_read (tzfile.c:408)
+==2996342==    by 0x4C6AC23: tzset_internal (tzset.c:405)
+==2996342==    by 0x4C6B5A6: __tz_convert (tzset.c:577)
+==2996342==    by 0x4C68E7C: ctime (ctime.c:27)
+==2996342==    by 0x1135C3: reactor::Timer::getCurTime[abi:cxx11]() (Log.h:65)
+==2996342==    by 0x113DDE: reactor::LogInfo::LogInfo(reactor::LogLevel, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int) (Log.h:192)
+==2996342==    by 0x162FBD: reactor::ServerSocket::bindSocket() (net.cpp:35)
+==2996342==    by 0x166EB0: reactor::ServerSocket::ServerSocket(unsigned short, int) (net.h:94)
+==2996342==    by 0x166266: reactor::Server::Server(unsigned short) (Server.cpp:6)
+==2996342==    by 0x12FAEB: main (main.cpp:81)
+==2996342== 
+==2996342== 48 bytes in 1 blocks are still reachable in loss record 39 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x116519: std::_MakeUniq<reactor::LogScreen>::__single_object std::make_unique<reactor::LogScreen>() (unique_ptr.h:962)
+==2996342==    by 0x113CB0: reactor::LogTool::ChgToScreen() (Log.h:163)
+==2996342==    by 0x113C4F: reactor::LogTool::getInstance() (Log.h:154)
+==2996342==    by 0x113F68: reactor::LogInfo::~LogInfo() (Log.h:207)
+==2996342==    by 0x162FE5: reactor::ServerSocket::bindSocket() (net.cpp:35)
+==2996342==    by 0x166EB0: reactor::ServerSocket::ServerSocket(unsigned short, int) (net.h:94)
+==2996342==    by 0x166266: reactor::Server::Server(unsigned short) (Server.cpp:6)
+==2996342==    by 0x12FAEB: main (main.cpp:81)
+==2996342== 
+==2996342== 57 bytes in 1 blocks are still reachable in loss record 40 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11234D: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) (basic_string.tcc:219)
+==2996342==    by 0x111E80: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) (basic_string.h:539)
+==2996342==    by 0x111BCC: __static_initialization_and_destruction_0(int, int) (Common.h:25)
+==2996342==    by 0x111C4C: _GLOBAL__sub_I_Buffer.cpp (Buffer.cpp:8)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 57 bytes in 1 blocks are still reachable in loss record 41 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11234D: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) (basic_string.tcc:219)
+==2996342==    by 0x111E80: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) (basic_string.h:539)
+==2996342==    by 0x112B9F: __static_initialization_and_destruction_0(int, int) (Common.h:25)
+==2996342==    by 0x112E79: _GLOBAL__sub_I__ZN7reactor6Client3_cbB5cxx11E (Client.cpp:21)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 57 bytes in 1 blocks are still reachable in loss record 42 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11234D: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) (basic_string.tcc:219)
+==2996342==    by 0x111E80: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) (basic_string.h:539)
+==2996342==    by 0x11ADE7: __static_initialization_and_destruction_0(int, int) (Common.h:25)
+==2996342==    by 0x11B08F: _GLOBAL__sub_I__ZN7reactor14MainDispatcherC2Ei (DisPatcher.cpp:130)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 57 bytes in 1 blocks are still reachable in loss record 43 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11234D: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) (basic_string.tcc:219)
+==2996342==    by 0x111E80: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) (basic_string.h:539)
+==2996342==    by 0x11F835: __static_initialization_and_destruction_0(int, int) (Common.h:25)
+==2996342==    by 0x11F8B5: _GLOBAL__sub_I__ZN7reactor5EpollC2Ev (Epoll.cpp:81)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 57 bytes in 1 blocks are still reachable in loss record 44 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11234D: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) (basic_string.tcc:219)
+==2996342==    by 0x111E80: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) (basic_string.h:539)
+==2996342==    by 0x120283: __static_initialization_and_destruction_0(int, int) (Common.h:25)
+==2996342==    by 0x120562: _GLOBAL__sub_I__Z16readFileToStringRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE (Handler.cpp:95)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 57 bytes in 1 blocks are still reachable in loss record 45 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11234D: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) (basic_string.tcc:219)
+==2996342==    by 0x111E80: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) (basic_string.h:539)
+==2996342==    by 0x12FD77: __static_initialization_and_destruction_0(int, int) (Common.h:25)
+==2996342==    by 0x130091: _GLOBAL__sub_I__Z14make_http_dateB5cxx11v (main.cpp:86)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 57 bytes in 1 blocks are still reachable in loss record 46 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11234D: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) (basic_string.tcc:219)
+==2996342==    by 0x111E80: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) (basic_string.h:539)
+==2996342==    by 0x164E3E: __static_initialization_and_destruction_0(int, int) (Common.h:25)
+==2996342==    by 0x1650AB: _GLOBAL__sub_I__ZN7reactor10setSockOptEv (net.cpp:354)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 57 bytes in 1 blocks are still reachable in loss record 47 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11234D: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) (basic_string.tcc:219)
+==2996342==    by 0x111E80: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) (basic_string.h:539)
+==2996342==    by 0x166AB2: __static_initialization_and_destruction_0(int, int) (Common.h:25)
+==2996342==    by 0x166D5A: _GLOBAL__sub_I__ZN7reactor6ServerC2Et (Server.cpp:29)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 64 bytes in 1 blocks are still reachable in loss record 48 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x16A8ED: __gnu_cxx::new_allocator<std::shared_ptr<reactor::ThreadDispatcher> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==2996342==    by 0x16A064: std::allocator_traits<std::allocator<std::shared_ptr<reactor::ThreadDispatcher> > >::allocate(std::allocator<std::shared_ptr<reactor::ThreadDispatcher> >&, unsigned long) (alloc_traits.h:464)
+==2996342==    by 0x169949: std::_Vector_base<std::shared_ptr<reactor::ThreadDispatcher>, std::allocator<std::shared_ptr<reactor::ThreadDispatcher> > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==2996342==    by 0x168C56: void std::vector<std::shared_ptr<reactor::ThreadDispatcher>, std::allocator<std::shared_ptr<reactor::ThreadDispatcher> > >::_M_realloc_insert<std::shared_ptr<reactor::ThreadDispatcher> const&>(__gnu_cxx::__normal_iterator<std::shared_ptr<reactor::ThreadDispatcher>*, std::vector<std::shared_ptr<reactor::ThreadDispatcher>, std::allocator<std::shared_ptr<reactor::ThreadDispatcher> > > >, std::shared_ptr<reactor::ThreadDispatcher> const&) (vector.tcc:440)
+==2996342==    by 0x167F77: std::vector<std::shared_ptr<reactor::ThreadDispatcher>, std::allocator<std::shared_ptr<reactor::ThreadDispatcher> > >::push_back(std::shared_ptr<reactor::ThreadDispatcher> const&) (stl_vector.h:1198)
+==2996342==    by 0x1663C0: reactor::Server::start() (Server.cpp:16)
+==2996342==    by 0x12FB3B: main (main.cpp:84)
+==2996342== 
+==2996342== 64 bytes in 1 blocks are still reachable in loss record 49 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x16AD3B: __gnu_cxx::new_allocator<std::function<void ()>*>::allocate(unsigned long, void const*) (new_allocator.h:127)
+==2996342==    by 0x16A3B9: std::allocator_traits<std::allocator<std::function<void ()>*> >::allocate(std::allocator<std::function<void ()>*>&, unsigned long) (alloc_traits.h:464)
+==2996342==    by 0x169CAB: std::_Deque_base<std::function<void ()>, std::allocator<std::function<void ()> > >::_M_allocate_map(unsigned long) (stl_deque.h:576)
+==2996342==    by 0x16914B: std::_Deque_base<std::function<void ()>, std::allocator<std::function<void ()> > >::_M_initialize_map(unsigned long) (stl_deque.h:625)
+==2996342==    by 0x16838D: std::_Deque_base<std::function<void ()>, std::allocator<std::function<void ()> > >::_Deque_base() (stl_deque.h:439)
+==2996342==    by 0x167A0F: std::deque<std::function<void ()>, std::allocator<std::function<void ()> > >::deque() (stl_deque.h:834)
+==2996342==    by 0x167A82: std::queue<std::function<void ()>, std::deque<std::function<void ()>, std::allocator<std::function<void ()> > > >::queue<std::deque<std::function<void ()>, std::allocator<std::function<void ()> > >, void>() (stl_queue.h:167)
+==2996342==    by 0x167275: reactor::ThreadPool::ThreadPool() (ThreadPool.h:60)
+==2996342==    by 0x16795F: std::_MakeUniq<reactor::ThreadPool>::__single_object std::make_unique<reactor::ThreadPool>() (unique_ptr.h:962)
+==2996342==    by 0x1671CA: reactor::ThreadPool::getInstance() (ThreadPool.h:53)
+==2996342==    by 0x166437: reactor::Server::start() (Server.cpp:25)
+==2996342== 
+==2996342== 64 bytes in 4 blocks are still reachable in loss record 50 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x166937: void std::_Function_base::_Base_manager<reactor::Server::start()::{lambda()#1}>::_M_create<reactor::Server::start()::{lambda()#1} const&>(std::_Any_data&, reactor::Server::start()::{lambda()#1} const&, std::integral_constant<bool, false>) (std_function.h:161)
+==2996342==    by 0x166896: void std::_Function_base::_Base_manager<reactor::Server::start()::{lambda()#1}>::_M_init_functor<reactor::Server::start()::{lambda()#1} const&>(std::_Any_data&, reactor::Server::start()::{lambda()#1} const&) (std_function.h:215)
+==2996342==    by 0x166803: std::_Function_base::_Base_manager<reactor::Server::start()::{lambda()#1}>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) (std_function.h:198)
+==2996342==    by 0x166697: std::_Function_handler<void (), reactor::Server::start()::{lambda()#1}>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) (std_function.h:282)
+==2996342==    by 0x167875: std::function<void ()>::function(std::function<void ()> const&) (std_function.h:391)
+==2996342==    by 0x16B340: std::_Bind<std::function<void ()> ()>::_Bind(std::_Bind<std::function<void ()> ()> const&) (functional:493)
+==2996342==    by 0x16B381: void std::_Function_base::_Base_manager<std::_Bind<std::function<void ()> ()> >::_M_create<std::_Bind<std::function<void ()> ()> const&>(std::_Any_data&, std::_Bind<std::function<void ()> ()> const&, std::integral_constant<bool, false>) (std_function.h:161)
+==2996342==    by 0x16AAEA: void std::_Function_base::_Base_manager<std::_Bind<std::function<void ()> ()> >::_M_init_functor<std::_Bind<std::function<void ()> ()> const&>(std::_Any_data&, std::_Bind<std::function<void ()> ()> const&) (std_function.h:215)
+==2996342==    by 0x16A271: std::_Function_base::_Base_manager<std::_Bind<std::function<void ()> ()> >::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) (std_function.h:198)
+==2996342==    by 0x169AFA: std::_Function_handler<void (), std::_Bind<std::function<void ()> ()> >::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) (std_function.h:282)
+==2996342==    by 0x167875: std::function<void ()>::function(std::function<void ()> const&) (std_function.h:391)
+==2996342== 
+==2996342== 96 bytes in 4 blocks are still reachable in loss record 51 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x167BA7: std::thread::thread<void (&)(reactor::ThreadPool*), reactor::ThreadPool*, void>(void (&)(reactor::ThreadPool*), reactor::ThreadPool*&&) (std_thread.h:143)
+==2996342==    by 0x167338: reactor::ThreadPool::ThreadPool() (ThreadPool.h:65)
+==2996342==    by 0x16795F: std::_MakeUniq<reactor::ThreadPool>::__single_object std::make_unique<reactor::ThreadPool>() (unique_ptr.h:962)
+==2996342==    by 0x1671CA: reactor::ThreadPool::getInstance() (ThreadPool.h:53)
+==2996342==    by 0x166437: reactor::Server::start() (Server.cpp:25)
+==2996342==    by 0x12FB3B: main (main.cpp:84)
+==2996342== 
+==2996342== 104 bytes in 1 blocks are still reachable in loss record 52 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4AC9866: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x4AC961F: std::filesystem::__cxx11::path::_M_split_cmpts() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x111FF7: std::filesystem::__cxx11::path::path<char [6], std::filesystem::__cxx11::path>(char const (&) [6], std::filesystem::__cxx11::path::format) (fs_path.h:290)
+==2996342==    by 0x111B01: __static_initialization_and_destruction_0(int, int) (Log.h:18)
+==2996342==    by 0x111C4C: _GLOBAL__sub_I_Buffer.cpp (Buffer.cpp:8)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 104 bytes in 1 blocks are still reachable in loss record 53 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4AC9866: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x4AC961F: std::filesystem::__cxx11::path::_M_split_cmpts() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x111FF7: std::filesystem::__cxx11::path::path<char [6], std::filesystem::__cxx11::path>(char const (&) [6], std::filesystem::__cxx11::path::format) (fs_path.h:290)
+==2996342==    by 0x112AD4: __static_initialization_and_destruction_0(int, int) (Log.h:18)
+==2996342==    by 0x112E79: _GLOBAL__sub_I__ZN7reactor6Client3_cbB5cxx11E (Client.cpp:21)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 104 bytes in 1 blocks are still reachable in loss record 54 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4AC9866: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x4AC961F: std::filesystem::__cxx11::path::_M_split_cmpts() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x111FF7: std::filesystem::__cxx11::path::path<char [6], std::filesystem::__cxx11::path>(char const (&) [6], std::filesystem::__cxx11::path::format) (fs_path.h:290)
+==2996342==    by 0x11AD1C: __static_initialization_and_destruction_0(int, int) (Log.h:18)
+==2996342==    by 0x11B08F: _GLOBAL__sub_I__ZN7reactor14MainDispatcherC2Ei (DisPatcher.cpp:130)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 104 bytes in 1 blocks are still reachable in loss record 55 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4AC9866: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x4AC961F: std::filesystem::__cxx11::path::_M_split_cmpts() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x111FF7: std::filesystem::__cxx11::path::path<char [6], std::filesystem::__cxx11::path>(char const (&) [6], std::filesystem::__cxx11::path::format) (fs_path.h:290)
+==2996342==    by 0x11F76A: __static_initialization_and_destruction_0(int, int) (Log.h:18)
+==2996342==    by 0x11F8B5: _GLOBAL__sub_I__ZN7reactor5EpollC2Ev (Epoll.cpp:81)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 104 bytes in 1 blocks are still reachable in loss record 56 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4AC9866: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x4AC961F: std::filesystem::__cxx11::path::_M_split_cmpts() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x111FF7: std::filesystem::__cxx11::path::path<char [6], std::filesystem::__cxx11::path>(char const (&) [6], std::filesystem::__cxx11::path::format) (fs_path.h:290)
+==2996342==    by 0x1201B8: __static_initialization_and_destruction_0(int, int) (Log.h:18)
+==2996342==    by 0x120562: _GLOBAL__sub_I__Z16readFileToStringRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE (Handler.cpp:95)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 104 bytes in 1 blocks are still reachable in loss record 57 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4AC9866: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x4AC961F: std::filesystem::__cxx11::path::_M_split_cmpts() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x111FF7: std::filesystem::__cxx11::path::path<char [6], std::filesystem::__cxx11::path>(char const (&) [6], std::filesystem::__cxx11::path::format) (fs_path.h:290)
+==2996342==    by 0x12FCAC: __static_initialization_and_destruction_0(int, int) (Log.h:18)
+==2996342==    by 0x130091: _GLOBAL__sub_I__Z14make_http_dateB5cxx11v (main.cpp:86)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 104 bytes in 1 blocks are still reachable in loss record 58 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4AC9866: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x4AC961F: std::filesystem::__cxx11::path::_M_split_cmpts() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x111FF7: std::filesystem::__cxx11::path::path<char [6], std::filesystem::__cxx11::path>(char const (&) [6], std::filesystem::__cxx11::path::format) (fs_path.h:290)
+==2996342==    by 0x164D73: __static_initialization_and_destruction_0(int, int) (Log.h:18)
+==2996342==    by 0x1650AB: _GLOBAL__sub_I__ZN7reactor10setSockOptEv (net.cpp:354)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 104 bytes in 1 blocks are still reachable in loss record 59 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4AC9866: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x4AC961F: std::filesystem::__cxx11::path::_M_split_cmpts() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x111FF7: std::filesystem::__cxx11::path::path<char [6], std::filesystem::__cxx11::path>(char const (&) [6], std::filesystem::__cxx11::path::format) (fs_path.h:290)
+==2996342==    by 0x1669E7: __static_initialization_and_destruction_0(int, int) (Log.h:18)
+==2996342==    by 0x166D5A: _GLOBAL__sub_I__ZN7reactor6ServerC2Et (Server.cpp:29)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 128 bytes in 1 blocks are still reachable in loss record 60 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x510179D: CRYPTO_zalloc (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5032EDC: ??? (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5033B7F: BN_bin2bn (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x4E451A8: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x4E32571: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 160 bytes in 4 blocks are still reachable in loss record 61 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x16B373: void std::_Function_base::_Base_manager<std::_Bind<std::function<void ()> ()> >::_M_create<std::_Bind<std::function<void ()> ()> const&>(std::_Any_data&, std::_Bind<std::function<void ()> ()> const&, std::integral_constant<bool, false>) (std_function.h:161)
+==2996342==    by 0x16AAEA: void std::_Function_base::_Base_manager<std::_Bind<std::function<void ()> ()> >::_M_init_functor<std::_Bind<std::function<void ()> ()> const&>(std::_Any_data&, std::_Bind<std::function<void ()> ()> const&) (std_function.h:215)
+==2996342==    by 0x16A271: std::_Function_base::_Base_manager<std::_Bind<std::function<void ()> ()> >::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) (std_function.h:198)
+==2996342==    by 0x169AFA: std::_Function_handler<void (), std::_Bind<std::function<void ()> ()> >::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) (std_function.h:282)
+==2996342==    by 0x167875: std::function<void ()>::function(std::function<void ()> const&) (std_function.h:391)
+==2996342==    by 0x167046: reactor::ThreadPool::threadTask(reactor::ThreadPool*) (ThreadPool.h:31)
+==2996342==    by 0x16C689: void std::__invoke_impl<void, void (*)(reactor::ThreadPool*), reactor::ThreadPool*>(std::__invoke_other, void (*&&)(reactor::ThreadPool*), reactor::ThreadPool*&&) (invoke.h:61)
+==2996342==    by 0x16C5FC: std::__invoke_result<void (*)(reactor::ThreadPool*), reactor::ThreadPool*>::type std::__invoke<void (*)(reactor::ThreadPool*), reactor::ThreadPool*>(void (*&&)(reactor::ThreadPool*), reactor::ThreadPool*&&) (invoke.h:96)
+==2996342==    by 0x16C55C: void std::thread::_Invoker<std::tuple<void (*)(reactor::ThreadPool*), reactor::ThreadPool*> >::_M_invoke<0ul, 1ul>(std::_Index_tuple<0ul, 1ul>) (std_thread.h:259)
+==2996342==    by 0x16C483: std::thread::_Invoker<std::tuple<void (*)(reactor::ThreadPool*), reactor::ThreadPool*> >::operator()() (std_thread.h:266)
+==2996342==    by 0x16C41B: std::thread::_State_impl<std::thread::_Invoker<std::tuple<void (*)(reactor::ThreadPool*), reactor::ThreadPool*> > >::_M_run() (std_thread.h:211)
+==2996342== 
+==2996342== 199 bytes in 9 blocks are still reachable in loss record 62 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x5D69EF7: ??? (in /usr/lib/x86_64-linux-gnu/libtasn1.so.6.6.2)
+==2996342==    by 0x5D71617: asn1_array2tree (in /usr/lib/x86_64-linux-gnu/libtasn1.so.6.6.2)
+==2996342==    by 0x5843614: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 208 bytes in 1 blocks are still reachable in loss record 63 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x167950: std::_MakeUniq<reactor::ThreadPool>::__single_object std::make_unique<reactor::ThreadPool>() (unique_ptr.h:962)
+==2996342==    by 0x1671CA: reactor::ThreadPool::getInstance() (ThreadPool.h:53)
+==2996342==    by 0x166437: reactor::Server::start() (Server.cpp:25)
+==2996342==    by 0x12FB3B: main (main.cpp:84)
+==2996342== 
+==2996342== 232 bytes in 1 blocks are still reachable in loss record 64 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4BC911F: newlocale (newlocale.c:199)
+==2996342==    by 0x5C52CE7: ??? (in /usr/lib/x86_64-linux-gnu/libp11-kit.so.0.3.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 256 bytes in 1 blocks are still reachable in loss record 65 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x510179D: CRYPTO_zalloc (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5032EDC: ??? (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5033B7F: BN_bin2bn (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x4E451DF: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x4E32571: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 303 bytes in 1 blocks are still reachable in loss record 66 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4C6BAC2: __tzfile_read (tzfile.c:275)
+==2996342==    by 0x4C6AC23: tzset_internal (tzset.c:405)
+==2996342==    by 0x4C6B5A6: __tz_convert (tzset.c:577)
+==2996342==    by 0x4C68E7C: ctime (ctime.c:27)
+==2996342==    by 0x1135C3: reactor::Timer::getCurTime[abi:cxx11]() (Log.h:65)
+==2996342==    by 0x113DDE: reactor::LogInfo::LogInfo(reactor::LogLevel, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int) (Log.h:192)
+==2996342==    by 0x162FBD: reactor::ServerSocket::bindSocket() (net.cpp:35)
+==2996342==    by 0x166EB0: reactor::ServerSocket::ServerSocket(unsigned short, int) (net.h:94)
+==2996342==    by 0x166266: reactor::Server::Server(unsigned short) (Server.cpp:6)
+==2996342==    by 0x12FAEB: main (main.cpp:81)
+==2996342== 
+==2996342== 416 bytes in 4 blocks are still reachable in loss record 67 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x11EB21: __gnu_cxx::new_allocator<std::__detail::_Hash_node_base*>::allocate(unsigned long, void const*) (new_allocator.h:127)
+==2996342==    by 0x11EA1C: std::allocator_traits<std::allocator<std::__detail::_Hash_node_base*> >::allocate(std::allocator<std::__detail::_Hash_node_base*>&, unsigned long) (alloc_traits.h:464)
+==2996342==    by 0x11E776: std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<std::pair<int const, std::shared_ptr<reactor::Connection> >, false> > >::_M_allocate_buckets(unsigned long) (hashtable_policy.h:1927)
+==2996342==    by 0x11E4BC: std::_Hashtable<int, std::pair<int const, std::shared_ptr<reactor::Connection> >, std::allocator<std::pair<int const, std::shared_ptr<reactor::Connection> > >, std::__detail::_Select1st, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_allocate_buckets(unsigned long) (hashtable.h:440)
+==2996342==    by 0x11DB60: std::_Hashtable<int, std::pair<int const, std::shared_ptr<reactor::Connection> >, std::allocator<std::pair<int const, std::shared_ptr<reactor::Connection> > >, std::__detail::_Select1st, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, true>) (hashtable.h:2382)
+==2996342==    by 0x11D053: std::_Hashtable<int, std::pair<int const, std::shared_ptr<reactor::Connection> >, std::allocator<std::pair<int const, std::shared_ptr<reactor::Connection> > >, std::__detail::_Select1st, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (hashtable.h:2361)
+==2996342==    by 0x11C6EB: std::_Hashtable<int, std::pair<int const, std::shared_ptr<reactor::Connection> >, std::allocator<std::pair<int const, std::shared_ptr<reactor::Connection> > >, std::__detail::_Select1st, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<std::pair<int const, std::shared_ptr<reactor::Connection> >, false>*, unsigned long) (hashtable.h:2021)
+==2996342==    by 0x11C37C: std::pair<std::__detail::_Node_iterator<std::pair<int const, std::shared_ptr<reactor::Connection> >, false, false>, bool> std::_Hashtable<int, std::pair<int const, std::shared_ptr<reactor::Connection> >, std::allocator<std::pair<int const, std::shared_ptr<reactor::Connection> > >, std::__detail::_Select1st, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_emplace<std::pair<int, std::shared_ptr<reactor::Connection> > >(std::integral_constant<bool, true>, std::pair<int, std::shared_ptr<reactor::Connection> >&&) (hashtable.h:1975)
+==2996342==    by 0x11BCBF: std::pair<std::__detail::_Node_iterator<std::pair<int const, std::shared_ptr<reactor::Connection> >, false, false>, bool> std::_Hashtable<int, std::pair<int const, std::shared_ptr<reactor::Connection> >, std::allocator<std::pair<int const, std::shared_ptr<reactor::Connection> > >, std::__detail::_Select1st, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::emplace<std::pair<int, std::shared_ptr<reactor::Connection> > >(std::pair<int, std::shared_ptr<reactor::Connection> >&&) (hashtable.h:915)
+==2996342==    by 0x11B6C5: std::enable_if<std::is_constructible<std::pair<int const, std::shared_ptr<reactor::Connection> >, std::pair<int, std::shared_ptr<reactor::Connection> >&&>::value, std::pair<std::__detail::_Node_iterator<std::pair<int const, std::shared_ptr<reactor::Connection> >, false, false>, bool> >::type std::unordered_map<int, std::shared_ptr<reactor::Connection>, std::hash<int>, std::equal_to<int>, std::allocator<std::pair<int const, std::shared_ptr<reactor::Connection> > > >::insert<std::pair<int, std::shared_ptr<reactor::Connection> > >(std::pair<int, std::shared_ptr<reactor::Connection> >&&) (unordered_map.h:564)
+==2996342==    by 0x11A67A: reactor::ThreadDispatcher::readReady() (DisPatcher.cpp:91)
+==2996342== 
+==2996342== 512 bytes in 1 blocks are still reachable in loss record 68 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x510179D: CRYPTO_zalloc (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5032EDC: ??? (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5033B7F: BN_bin2bn (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x4E45216: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x4E32571: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 512 bytes in 1 blocks are still reachable in loss record 69 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x16B573: __gnu_cxx::new_allocator<std::function<void ()> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==2996342==    by 0x16AD6A: std::allocator_traits<std::allocator<std::function<void ()> > >::allocate(std::allocator<std::function<void ()> >&, unsigned long) (alloc_traits.h:464)
+==2996342==    by 0x16A3E7: std::_Deque_base<std::function<void ()>, std::allocator<std::function<void ()> > >::_M_allocate_node() (stl_deque.h:562)
+==2996342==    by 0x169D28: std::_Deque_base<std::function<void ()>, std::allocator<std::function<void ()> > >::_M_create_nodes(std::function<void ()>**, std::function<void ()>**) (stl_deque.h:663)
+==2996342==    by 0x1691A1: std::_Deque_base<std::function<void ()>, std::allocator<std::function<void ()> > >::_M_initialize_map(unsigned long) (stl_deque.h:637)
+==2996342==    by 0x16838D: std::_Deque_base<std::function<void ()>, std::allocator<std::function<void ()> > >::_Deque_base() (stl_deque.h:439)
+==2996342==    by 0x167A0F: std::deque<std::function<void ()>, std::allocator<std::function<void ()> > >::deque() (stl_deque.h:834)
+==2996342==    by 0x167A82: std::queue<std::function<void ()>, std::deque<std::function<void ()>, std::allocator<std::function<void ()> > > >::queue<std::deque<std::function<void ()>, std::allocator<std::function<void ()> > >, void>() (stl_queue.h:167)
+==2996342==    by 0x167275: reactor::ThreadPool::ThreadPool() (ThreadPool.h:60)
+==2996342==    by 0x16795F: std::_MakeUniq<reactor::ThreadPool>::__single_object std::make_unique<reactor::ThreadPool>() (unique_ptr.h:962)
+==2996342==    by 0x1671CA: reactor::ThreadPool::getInstance() (ThreadPool.h:53)
+==2996342== 
+==2996342== 1,024 bytes in 1 blocks are still reachable in loss record 70 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x510179D: CRYPTO_zalloc (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5032EDC: ??? (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x5033B7F: BN_bin2bn (in /usr/lib/x86_64-linux-gnu/libcrypto.so.3)
+==2996342==    by 0x4E4524D: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x4E32571: ??? (in /usr/lib/x86_64-linux-gnu/libssh.so.4.8.7)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 1,024 bytes in 1 blocks are still reachable in loss record 71 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4C0EBA3: _IO_file_doallocate (filedoalloc.c:101)
+==2996342==    by 0x4C1DCDF: _IO_doallocbuf (genops.c:347)
+==2996342==    by 0x4C1CF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==2996342==    by 0x4C1B6D4: _IO_new_file_xsputn (fileops.c:1243)
+==2996342==    by 0x4C1B6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==2996342==    by 0x4C0FFD6: fwrite (iofwrite.c:39)
+==2996342==    by 0x4A7EB64: std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x113A82: reactor::LogScreen::Write(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (Log.h:125)
+==2996342==    by 0x113D7B: reactor::LogTool::WriteMsg(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (Log.h:173)
+==2996342==    by 0x113F95: reactor::LogInfo::~LogInfo() (Log.h:207)
+==2996342==    by 0x162FE5: reactor::ServerSocket::bindSocket() (net.cpp:35)
+==2996342==    by 0x166EB0: reactor::ServerSocket::ServerSocket(unsigned short, int) (net.h:94)
+==2996342== 
+==2996342== 1,040 bytes in 1 blocks are still reachable in loss record 72 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x4BD5791: __new_exitfn (cxa_atexit.c:114)
+==2996342==    by 0x4BD590A: __internal_atexit (cxa_atexit.c:44)
+==2996342==    by 0x4BD590A: __cxa_atexit (cxa_atexit.c:70)
+==2996342==    by 0x11AD80: __static_initialization_and_destruction_0(int, int) (Log.h:20)
+==2996342==    by 0x11B08F: _GLOBAL__sub_I__ZN7reactor14MainDispatcherC2Ei (DisPatcher.cpp:130)
+==2996342==    by 0x4BB9EBA: call_init (libc-start.c:145)
+==2996342==    by 0x4BB9EBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==2996342==    by 0x1119B4: (below main) (in /home/hrj/projects/weather-inquiry-and-prediction-system/bin/program)
+==2996342== 
+==2996342== 1,408 bytes in 4 blocks are possibly lost in loss record 73 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x40147D9: calloc (rtld-malloc.h:44)
+==2996342==    by 0x40147D9: allocate_dtv (dl-tls.c:375)
+==2996342==    by 0x40147D9: _dl_allocate_tls (dl-tls.c:634)
+==2996342==    by 0x4C257B4: allocate_stack (allocatestack.c:430)
+==2996342==    by 0x4C257B4: pthread_create@@GLIBC_2.34 (pthread_create.c:647)
+==2996342==    by 0x4A1E328: std::thread::_M_start_thread(std::unique_ptr<std::thread::_State, std::default_delete<std::thread::_State> >, void (*)()) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x167BE1: std::thread::thread<void (&)(reactor::ThreadPool*), reactor::ThreadPool*, void>(void (&)(reactor::ThreadPool*), reactor::ThreadPool*&&) (std_thread.h:143)
+==2996342==    by 0x167338: reactor::ThreadPool::ThreadPool() (ThreadPool.h:65)
+==2996342==    by 0x16795F: std::_MakeUniq<reactor::ThreadPool>::__single_object std::make_unique<reactor::ThreadPool>() (unique_ptr.h:962)
+==2996342==    by 0x1671CA: reactor::ThreadPool::getInstance() (ThreadPool.h:53)
+==2996342==    by 0x166437: reactor::Server::start() (Server.cpp:25)
+==2996342==    by 0x12FB3B: main (main.cpp:84)
+==2996342== 
+==2996342== 1,411 bytes in 65 blocks are still reachable in loss record 74 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x5D69EF7: ??? (in /usr/lib/x86_64-linux-gnu/libtasn1.so.6.6.2)
+==2996342==    by 0x5D71617: asn1_array2tree (in /usr/lib/x86_64-linux-gnu/libtasn1.so.6.6.2)
+==2996342==    by 0x58434E7: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 6,784 bytes in 4 blocks are still reachable in loss record 75 of 78
+==2996342==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x16BC02: __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<reactor::ThreadDispatcher, std::allocator<reactor::ThreadDispatcher>, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==2996342==    by 0x16B6AC: std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<reactor::ThreadDispatcher, std::allocator<reactor::ThreadDispatcher>, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<reactor::ThreadDispatcher, std::allocator<reactor::ThreadDispatcher>, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (alloc_traits.h:464)
+==2996342==    by 0x16AFF5: std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<reactor::ThreadDispatcher, std::allocator<reactor::ThreadDispatcher>, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<reactor::ThreadDispatcher, std::allocator<reactor::ThreadDispatcher>, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<reactor::ThreadDispatcher, std::allocator<reactor::ThreadDispatcher>, (__gnu_cxx::_Lock_policy)2> >&) (allocated_ptr.h:98)
+==2996342==    by 0x16A6C5: std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<reactor::ThreadDispatcher, std::allocator<reactor::ThreadDispatcher>, int&>(reactor::ThreadDispatcher*&, std::_Sp_alloc_shared_tag<std::allocator<reactor::ThreadDispatcher> >, int&) (shared_ptr_base.h:648)
+==2996342==    by 0x169FCD: std::__shared_ptr<reactor::ThreadDispatcher, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<reactor::ThreadDispatcher>, int&>(std::_Sp_alloc_shared_tag<std::allocator<reactor::ThreadDispatcher> >, int&) (shared_ptr_base.h:1342)
+==2996342==    by 0x169714: std::shared_ptr<reactor::ThreadDispatcher>::shared_ptr<std::allocator<reactor::ThreadDispatcher>, int&>(std::_Sp_alloc_shared_tag<std::allocator<reactor::ThreadDispatcher> >, int&) (shared_ptr.h:409)
+==2996342==    by 0x168B2E: std::shared_ptr<reactor::ThreadDispatcher> std::allocate_shared<reactor::ThreadDispatcher, std::allocator<reactor::ThreadDispatcher>, int&>(std::allocator<reactor::ThreadDispatcher> const&, int&) (shared_ptr.h:863)
+==2996342==    by 0x167EAE: std::shared_ptr<reactor::ThreadDispatcher> std::make_shared<reactor::ThreadDispatcher, int&>(int&) (shared_ptr.h:879)
+==2996342==    by 0x1663A6: reactor::Server::start() (Server.cpp:15)
+==2996342==    by 0x12FB3B: main (main.cpp:84)
+==2996342== 
+==2996342== 21,824 bytes in 124 blocks are still reachable in loss record 76 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x5D7154C: asn1_array2tree (in /usr/lib/x86_64-linux-gnu/libtasn1.so.6.6.2)
+==2996342==    by 0x5843614: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 72,704 bytes in 1 blocks are still reachable in loss record 77 of 78
+==2996342==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x49EC939: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== 84,128 bytes in 478 blocks are still reachable in loss record 78 of 78
+==2996342==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2996342==    by 0x5D7154C: asn1_array2tree (in /usr/lib/x86_64-linux-gnu/libtasn1.so.6.6.2)
+==2996342==    by 0x58434E7: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x5811CA2: ??? (in /usr/lib/x86_64-linux-gnu/libgnutls.so.30.31.0)
+==2996342==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==2996342==    by 0x4006567: call_init (dl-init.c:33)
+==2996342==    by 0x4006567: _dl_init (dl-init.c:117)
+==2996342==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==2996342== 
+==2996342== LEAK SUMMARY:
+==2996342==    definitely lost: 0 bytes in 0 blocks
+==2996342==    indirectly lost: 0 bytes in 0 blocks
+==2996342==      possibly lost: 1,408 bytes in 4 blocks
+==2996342==    still reachable: 195,589 bytes in 765 blocks
+==2996342==         suppressed: 0 bytes in 0 blocks
+==2996342== 
+==2996342== For lists of detected and suppressed errors, rerun with: -s
+==2996342== ERROR SUMMARY: 5 errors from 2 contexts (suppressed: 0 from 0)

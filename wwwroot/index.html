@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气查询系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            background-color: #1e88e5;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        #city-input {
+            width: 60%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s;
+        }
+        
+        #city-input:focus {
+            border-color: #1e88e5;
+        }
+        
+        #search-btn {
+            padding: 12px 20px;
+            background-color: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        #search-btn:hover {
+            background-color: #1565c0;
+        }
+        
+        .weather-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .current-weather {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .weather-info {
+            flex: 1;
+        }
+        
+        .city-name {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            color: #1e88e5;
+        }
+        
+        .weather-desc {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .temp {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        
+        .weather-icon {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .detail-item {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        
+        .detail-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .forecast {
+            margin-top: 30px;
+        }
+        
+        .forecast-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #1e88e5;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .forecast-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+        }
+        
+        .forecast-item {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .forecast-day {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .forecast-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 10px;
+        }
+        
+        .forecast-temp {
+            font-size: 0.9rem;
+        }
+        
+        .error-message {
+            color: #e53935;
+            text-align: center;
+            padding: 20px;
+            background-color: #ffebee;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>天气查询系统</h1>
+            <p>查询全球城市实时天气信息</p>
+        </header>
+        
+        <div class="search-box">
+            <input type="text" id="city-input" placeholder="请输入城市名称，例如：北京" autocomplete="off">
+            <button id="search-btn">查询天气</button>
+        </div>
+        
+        <div class="error-message" id="error-message">
+            无法获取该城市的天气信息，请检查城市名称是否正确。
+        </div>
+        
+        <div class="weather-card" id="weather-card">
+            <div class="current-weather">
+                <div class="weather-info">
+                    <h2 class="city-name" id="city-name">北京市</h2>
+                    <p class="weather-desc" id="weather-desc">多云</p>
+                    <div class="temp" id="temp">24°C</div>
+                </div>
+                <img src="https://openweathermap.org/img/wn/04d@2x.png" alt="天气图标" class="weather-icon" id="weather-icon">
+            </div>
+            
+            <div class="details">
+                <div class="detail-item">
+                    <div class="detail-label">体感温度</div>
+                    <div class="detail-value" id="feels-like">23°C</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">湿度</div>
+                    <div class="detail-value" id="humidity">65%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">风速</div>
+                    <div class="detail-value" id="wind-speed">12 km/h</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">气压</div>
+                    <div class="detail-value" id="pressure">1012 hPa</div>
+                </div>
+            </div>
+            
+            <div class="forecast">
+                <h3 class="forecast-title">未来5天预报</h3>
+                <div class="forecast-items" id="forecast-items">
+                    <!-- 预报项将通过JavaScript动态添加 -->
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 天气查询系统 | 数据来源于网络</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchBtn = document.getElementById('search-btn');
+            const cityInput = document.getElementById('city-input');
+            const weatherCard = document.getElementById('weather-card');
+            const errorMessage = document.getElementById('error-message');
+            
+            // 示例函数，实际应用中需要替换为真实的API调用
+            function fetchWeatherData(city) {
+                // 这里应该是调用天气API的代码
+                console.log(`查询城市: ${city}`);
+                
+                // 模拟API响应延迟
+                setTimeout(() => {
+                    // 模拟成功响应
+                    if (city && city.trim() !== '') {
+                        displayWeatherData(getMockWeatherData());
+                        errorMessage.style.display = 'none';
+                        weatherCard.style.display = 'block';
+                    } else {
+                        // 模拟错误响应
+                        errorMessage.style.display = 'block';
+                        weatherCard.style.display = 'none';
+                    }
+                }, 800);
+            }
+            
+            // 模拟天气数据 - 实际应用中应从API获取真实数据
+            function getMockWeatherData() {
+                return {
+                    city: cityInput.value || '北京市',
+                    description: '多云',
+                    temp: 24,
+                    feelsLike: 23,
+                    humidity: 65,
+                    windSpeed: 12,
+                    pressure: 1012,
+                    icon: '04d',
+                    forecast: [
+                        { day: '周一', icon: '01d', tempMax: 26, tempMin: 18 },
+                        { day: '周二', icon: '02d', tempMax: 25, tempMin: 17 },
+                        { day: '周三', icon: '03d', tempMax: 23, tempMin: 16 },
+                        { day: '周四', icon: '09d', tempMax: 22, tempMin: 15 },
+                        { day: '周五', icon: '01d', tempMax: 24, tempMin: 16 }
+                    ]
+                };
+            }
+            
+            // 显示天气数据
+            function displayWeatherData(data) {
+                document.getElementById('city-name').textContent = data.city;
+                document.getElementById('weather-desc').textContent = data.description;
+                document.getElementById('temp').textContent = `${data.temp}°C`;
+                document.getElementById('feels-like').textContent = `${data.feelsLike}°C`;
+                document.getElementById('humidity').textContent = `${data.humidity}%`;
+                document.getElementById('wind-speed').textContent = `${data.windSpeed} km/h`;
+                document.getElementById('pressure').textContent = `${data.pressure} hPa`;
+                
+                // 设置天气图标 - 这里使用OpenWeatherMap的图标URL格式
+                document.getElementById('weather-icon').src = `https://openweathermap.org/img/wn/${data.icon}@2x.png`;
+                
+                // 更新预报
+                const forecastContainer = document.getElementById('forecast-items');
+                forecastContainer.innerHTML = '';
+                
+                data.forecast.forEach(item => {
+                    const forecastItem = document.createElement('div');
+                    forecastItem.className = 'forecast-item';
+                    forecastItem.innerHTML = `
+                        <div class="forecast-day">${item.day}</div>
+                        <img src="https://openweathermap.org/img/wn/${item.icon}.png" alt="${item.day}天气" class="forecast-icon">
+                        <div class="forecast-temp">${item.tempMax}°/${item.tempMin}°</div>
+                    `;
+                    forecastContainer.appendChild(forecastItem);
+                });
+            }
+            
+            // 搜索按钮点击事件
+            searchBtn.addEventListener('click', function() {
+                const city = cityInput.value.trim();
+                fetchWeatherData(city);
+            });
+            
+            // 回车键触发搜索
+            cityInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const city = cityInput.value.trim();
+                    fetchWeatherData(city);
+                }
+            });
+            
+            // 初始加载时显示示例数据
+            displayWeatherData(getMockWeatherData());
+            weatherCard.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

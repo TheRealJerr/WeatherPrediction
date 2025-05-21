@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人工智能专业简历</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            color: #333;
+            max-width: 800px;
+            font-size: 14px;
+        }
+        h1, h2, h3 {
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            text-align: center;
+        }
+        h2 {
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        h3 {
+            font-size: 14px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        p {
+            margin: 0;
+            padding: 0;
+            font-size: 13px;
+        }
+        ul {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 13px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .section {
+            margin-bottom: 15px;
+        }
+        .contact-info {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .contact-info p {
+            margin: 0;
+            display: inline-block;
+            margin-right: 20px;
+            align-items: center;
+            font-size: 13px;
+        }
+        .contact-info i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        .icon {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        a {
+            color: #2980b9;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        @page {
+            size: A4 portrait;
+            margin: 1cm;
+        }
+        @media print {
+            body {
+                max-width: 100%;
+                padding: 0;
+                background-color: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>意向岗位：C++研发工程师</h1>
+    <div class="contact-info">
+        <p><i class="fas fa-user"></i><strong>姓名:</strong> 何锐杰</p>
+        <p><i class="fab fa-github"></i><strong>GitHub:</strong> <a href="https://github.com/TheRealJerr">github.com/TheRealJerr</a></p>
+        <p><i class="fas fa-envelope"></i><strong>邮箱:</strong> heruijie@stu.scu.edu.cn</p>
+        <p><i class="fas fa-phone"></i><strong>电话:</strong> 182-8136-2671</p>
+        <p><i class="fas fa-blog"></i><strong>博客:</strong> <a href="https://blog.csdn.net/jerryhe_com?spm=1011.2266.3001.5343">csdn博客</a></p>
+    </div>
+
+    <div class="section">
+        <h2>教育背景</h2>
+        <p>
+            <strong>四川大学(985)</strong>: 人工智能 (2023 - 2027) 
+            <span style="margin-right: 40px;"></span>                  
+            <strong>专业排名:</strong> 前20%
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>项目经历</h2>
+        <div class="project">
+            <h3>基于C++的Json-RPC框架</h3>
+            <p><strong>技术栈:</strong> C++, Linux, JsonCpp, Muduo网络库</p>
+            <p>项目概述：设计并实现了一个高性能的C++ Json-RPC框架，具有以下核心功能：</p>
+            <ul>
+                <li>支持同步调用和异步回调机制，提供灵活的调用方式，实现了完善的服务注册与发现机制，便于分布式系统管理。</li>
+                <li>采用JsonCpp进行数据序列化，确保跨平台兼容性，基于Muduo网络库构建高并发通信层，优化网络传输效率。</li>
+                <li>实现了发布订阅模式，支持服务状态变更实时通知。</li>
+            </ul>
+            <p><strong>项目链接:</strong> <a href="https://github.com/TheRealJerr/RPCFrame">基于muduo库实现的Rpc框架</a></p>
+        </div>
+        <div class="project">
+            <h3>基于epoll实现的高并发处理服务器</h3>
+            <p><strong>技术栈:</strong> C++, Linux, epoll模型,</p>
+            <p>项目概述: 通过epoll模型实现one thread one loop高并发处理服务器</p>
+            <ul>
+                <li>服务端主线程监听套接字通过RR轮转将通信套接字通过管道传递给线程池，子线程通过私有一个epoll模型进行事件管理</li>
+                <li>客户端主线程实现数据发送功能，独立一个线程异步处理服务端消息</li>
+                <li>客户端和服务端均以通过设计连接回调函数, 由内部异步调用连接回调</li>
+            </ul>
+            <p><strong>项目链接:</strong> <a href="https://github.com/TheRealJerr/reactorModule">通过epoll模型实现高效IO监控的模型</a></p>
+        </div>
+        <div class="project">
+            <h3>高并发内存池</h3>
+            <p><strong>技术栈:</strong> C++ </p>
+            <p>项目概述：效仿tcmalloc实现了一个简单的高并发内存池</p>
+            <ul>
+                <li> 通过实现thread cache，实现线程私有内存池 </li>
+                <li> 实现central cache，当线程私有内存池不足，通过central cache进行申请,central cache设计桶锁提高效率</li>
+                <li> 实现page cache，以页为单位管理内存，直接调用系统接口</li>
+                <li> 通过多层级实现，实现线程局部无锁申请内存，高并发情况优于malloc </li>
+            </ul>
+            <p>
+                <strong>项目链接:</strong> 
+                <a href="https://github.com/TheRealJerr/concurrentMemoryPool">效仿tcmalloc实现的高并发内存池</a> | 
+            </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>技术栈</h2>
+        
+        <div class="tech-stack">
+            <h3><i class="fab fa-cuttlefish icon"></i>C++/数据结构</h3>
+            <ul>
+                <li><strong>数据结构/STL：</strong>深入理解常用数据结构原理与实现，包括链表、堆、红黑树、哈希表等，能够根据场景合理选择适合的容器，能够手写STL容器, 线程, 智能指针组件。</li>
+                <li><strong>C++特性：</strong>深入了解C++语法，喜欢探索了解C++各种语法特性，例如：CRTP，通过返回值进行重载。</li>
+                <li><strong>C++11/14/17特性：</strong>熟练运用现代C++特性，包括智能指针、lambda表达式、移动语义、完美转发，c++线程库等，熟练使用c++新特性进行开发。</li>
+                <li><strong>设计模式：</strong>掌握单例、工厂、建造者等常用设计模式，能够应用于实际项目开发。</li>
+            </ul>
+        </div>
+        
+        <div class="tech-stack">
+            <h3><i class="fab fa-linux icon"></i>Linux操作系统</h3>
+            <ul>
+                <li><strong>系统编程：</strong>熟悉Linux系统调用、进程/线程管理、信号处理、文件I/O等核心机制，能够手写进程池，线程池，多路转接。</li>
+                <li><strong>内存管理：</strong>理解虚拟内存、内存映射、页面置换等机制。</li>
+                <li><strong>开发环境：</strong>熟练使用GCC/GDB/Make等开发工具链，能够进行高效调试和性能分析。</li>
+            </ul>
+        </div>
+        
+        <div class="tech-stack">
+            <h3><i class="fas fa-network-wired icon"></i>计算机网络</h3>
+            <ul>
+                <li><strong>协议栈：</strong>深入理解TCP/IP协议栈，包括各层协议工作原理和交互过程。</li>
+                <li><strong>Socket编程：</strong>熟练使用BSD Socket API进行网络编程。</li>
+                <li><strong>高性能网络：</strong>掌握多路复用、非阻塞I/O、事件驱动等高性能网络编程技术。</li>
+                <li><strong>Web技术：</strong>了解HTTP/HTTPS协议。</li>
+            </ul>
+        </div>
+        <div class="tech-stack">
+            <h3><i class="fas fa-database icon"></i>Redis</h3>
+            <ul>
+                <li><strong>核心机制：</strong>深入理解Redis单线程模型、事件循环、持久化(RDB/AOF)机制。</li>
+                <li><strong>数据结构：</strong>掌握String、Hash、List、Set、Zset等数据结构及适用场景。</li>
+                <li><strong>高级特性：</strong>掌握事务、Pipeline、Pub/Sub、Lua脚本等高级功能。</li>
+            </ul>
+        </div>
+    </div>  
+</body>
+</html>
